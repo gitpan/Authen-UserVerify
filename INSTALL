@@ -1,0 +1,7 @@
+Like a normal Perl module, run these steps:
+
+perl Makefile.PL
+make
+make test
+sudo make install
+

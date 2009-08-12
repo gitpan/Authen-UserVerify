@@ -1,0 +1,101 @@
+=head1 NAME
+
+Authen::UserVerify - Generate and verify unique codes to be used to
+authenticate users one time.
+
+=head1 DESCRIPTION
+
+Caters to various situations where users need to be authenticated without a
+password like:
+
+=over
+
+=item 1. Verify user email address
+
+=item 2. Set first-time user password
+
+=item 3. Reset password via email
+
+=item 4. Confirm users registration
+
+=item 5. Get user details first time
+
+=back
+
+The module is generic and framework independent and can be used in any
+Perl based application like CGI, Catalyst, etc. Keys are SHA1 encrypted so the
+generated code cannot be obtained even if access to the storage is available.
+
+=head1 EXAMPLE
+
+Generating the code:
+
+    # Getting a code
+    my $user = "terence"
+    my $email = "..";
+    my $reg = Authen::UserVerify->new(file => "/tmp/myapp_userinfo");
+    my $code = $reg->add("CONFIRM_REG", $user, $email);
+    my $url = $curr_url . "?code=$code";
+    # mail url to user
+
+Verifying the code:
+
+    # Read $code from url
+    if ($reg->has($code)) { # Verifying the code
+        my ( $type, $user, $email ) = $reg->get($code);
+        if ( "CONFIRM_REG" eq $type ) {
+            $reg->delete($code); # invalidate the code
+            init_session($user);
+            show_reg_form();
+        }
+    } else {
+        # The code is invalid
+    }
+
+The above example shows how the module can be used to let users confirm their
+registration. A context string CONFIRM_REG is used to indicate that the context
+is to confirm user registration. This prevents misuse of the code for a
+different context if you are using the same storage for different contexts.
+
+=head1 METHODS
+
+=head2 new
+
+Create a new Authen::UserVerify object
+
+=head2 get
+
+Fetch user info for the given code
+
+=head2 add
+
+Add the user entry
+
+=head2 has
+
+Check if the code is present
+
+=head2 delete
+
+Remove the entry
+
+=head1 CAVEATS
+
+Multi-line data (with newlines in between) cannot be added
+
+=head1 AUTHOR
+
+Terence Monteiro <F<terencemo@cpan.org>>.
+
+=head1 CREDITS
+
+Nivedita Mukherjee, for testing out concepts in a CGI application
+
+Alok Sharma, for reviewing the code
+
+Ricardo Signes and Stephan for suggestions on #email at irc.perl.org
+
+=head1 LICENSE
+
+This module is free software; you can distribute it and/or modify it under the same terms as Perl itself
+

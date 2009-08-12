@@ -4,6 +4,7 @@ WriteMakefile(
     NAME            => 'Authen::UserVerify',
     VERSION_FROM    => 'lib/Authen/UserVerify.pm',
     PREREQ_PM       => {
+        'Carp'          => 1.04,
         'Data::Random'  => 0.05,
         'Digest::SHA1'  => 2.11,
         'File::Copy'    => 2.09,
@@ -11,7 +12,7 @@ WriteMakefile(
         'Text::CSV_XS'  => 0.26
     },
     AUTHOR => 'Terence Monteiro',
-    ABSTRACT_FROM => 'lib/Authen/UserVerify.pm',
+    ABSTRACT_FROM => 'lib/Authen/UserVerify.pod',
     LICENSE => 'perl'
 );
 

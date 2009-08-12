@@ -1,6 +1,6 @@
 --- #YAML:1.0
 name:               Authen-UserVerify
-version:            0.07
+version:            0.075
 abstract:           Generate and verify unique codes to be used to
 author:
     - Terence Monteiro
@@ -11,6 +11,7 @@ configure_requires:
 build_requires:
     ExtUtils::MakeMaker:  0
 requires:
+    Carp:          1.04
     Data::Random:  0.05
     Digest::SHA1:  2.11
     File::Copy:    2.09
